@@ -1,38 +1,25 @@
-package mk.ukim.finki.model;
+package mk.ukim.finki.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import mk.ukim.finki.model.CategoryAcc;
+import mk.ukim.finki.model.Host;
 
-@Entity
 @Data
-public class Accommodation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AccommodationDto {
     private String name;
-    @Enumerated(EnumType.STRING)
     private CategoryAcc category;
     private Integer numRooms;
-    @ManyToOne
-    private Host host;
+    private Long hostId;
 
-    public Accommodation(String name, CategoryAcc category, Integer numRooms, Host host) {
+    public AccommodationDto(String name, CategoryAcc category, Integer numRooms, Long hostId) {
         this.name = name;
         this.category = category;
         this.numRooms = numRooms;
-        this.host = host;
-    }
-
-    public Accommodation() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.hostId = hostId;
     }
 
     public String getName() {
@@ -59,11 +46,11 @@ public class Accommodation {
         this.numRooms = numRooms;
     }
 
-    public Host getHost() {
-        return host;
+    public Long getHostId() {
+        return hostId;
     }
 
-    public void setHost(Host host) {
-        this.host = host;
+    public void setHostId(Long hostId) {
+        this.hostId = hostId;
     }
 }
