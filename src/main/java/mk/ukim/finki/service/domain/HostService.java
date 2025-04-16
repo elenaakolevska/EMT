@@ -1,6 +1,6 @@
-package mk.ukim.finki.service;
+package mk.ukim.finki.service.domain;
 
-import mk.ukim.finki.model.Host;
+import mk.ukim.finki.model.domain.Host;
 
 import java.util.List;
 import java.util.Optional;

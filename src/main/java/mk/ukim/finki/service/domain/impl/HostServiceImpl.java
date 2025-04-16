@@ -1,8 +1,8 @@
-package mk.ukim.finki.service.impl;
+package mk.ukim.finki.service.domain.impl;
 
-import mk.ukim.finki.model.Host;
+import mk.ukim.finki.model.domain.Host;
 import mk.ukim.finki.repository.HostRepository;
-import mk.ukim.finki.service.HostService;
+import mk.ukim.finki.service.domain.HostService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

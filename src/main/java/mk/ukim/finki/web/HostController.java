@@ -1,9 +1,12 @@
 package mk.ukim.finki.web;
 
-
-import mk.ukim.finki.dto.HostDto;
-import mk.ukim.finki.model.Host;
-import mk.ukim.finki.service.HostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import mk.ukim.finki.dto.create.CreateHostDto;
+import mk.ukim.finki.dto.display.DisplayHostDto;
+import mk.ukim.finki.model.domain.Host;
+import mk.ukim.finki.service.application.ApplicationHostService;
+import mk.ukim.finki.service.domain.HostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,36 +14,63 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hosts")
-
+@Tag(
+        name = "Host API",
+        description = "Endpoints for managing hosts"
+)
 public class HostController {
-    private final HostService hostService;
+    private final ApplicationHostService hostService;
 
-    public HostController(HostService hostService) {
+    public HostController(ApplicationHostService hostService) {
         this.hostService = hostService;
     }
 
+    @Operation(
+            summary = "Find all hosts",
+            description = "Returns a list of all hosts."
+    )
     @GetMapping
-    public List<Host> findAll(){
+    public List<DisplayHostDto> findAll(){
         return hostService.findAll();
     }
+
+    @Operation(
+            summary = "Find host by ID",
+            description = "Returns the host with the specified ID."
+    )
     @GetMapping("{id}")
-    public ResponseEntity<Host> findById(@PathVariable Long id) {
+    public ResponseEntity<DisplayHostDto> findById(@PathVariable Long id) {
         return hostService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @Operation(
+            summary = "Add a new host",
+            description = "Creates a new host using the provided data."
+    )
     @PostMapping("/add")
-    public ResponseEntity<Host> save(@RequestBody Host host){
+    public ResponseEntity<DisplayHostDto> save(@RequestBody CreateHostDto host){
         return hostService.save(host)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @Operation(
+            summary = "Update a host",
+            description = "Updates an existing host with the given ID."
+    )
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Host> update(@PathVariable Long id, @RequestBody Host host) {
+    public ResponseEntity<DisplayHostDto> update(@PathVariable Long id, @RequestBody CreateHostDto host) {
         return hostService.update(id, host)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @Operation(
+            summary = "Delete a host",
+            description = "Deletes the host with the given ID."
+    )
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (hostService.findById(id).isPresent()) {

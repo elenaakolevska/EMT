@@ -1,4 +1,4 @@
-package mk.ukim.finki.model;
+package mk.ukim.finki.model.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

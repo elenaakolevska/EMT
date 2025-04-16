@@ -1,7 +1,8 @@
-package mk.ukim.finki.model;
+package mk.ukim.finki.model.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import mk.ukim.finki.model.enumerations.CategoryAcc;
 
 @Entity
 @Data
