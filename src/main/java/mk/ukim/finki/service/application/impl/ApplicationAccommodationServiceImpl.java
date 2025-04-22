@@ -1,5 +1,6 @@
 package mk.ukim.finki.service.application.impl;
 
+import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
 import mk.ukim.finki.service.application.ApplicationAccommodationService;
@@ -52,5 +53,10 @@ public class ApplicationAccommodationServiceImpl implements ApplicationAccommoda
     public Optional<DisplayAccommodationDto> rentRoom(Long id) {
         return accomodationService.rentRoom(id)
                 .map(DisplayAccommodationDto::from);
+    }
+
+    @Override
+    public List<CategoryCountDTO> countByCategoryAcc() {
+        return accomodationService.countByCategory();
     }
 }

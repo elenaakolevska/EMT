@@ -50,6 +50,9 @@ public class ApplicationAvailabilityServiceImpl implements ApplicationAvailabili
 
     @Override
     public List<DisplayAvailabilityDto> findByAccommodationId(Long accommodationId) {
-        return availabilityService.findByAccommodationId(accommodationId).stream().map(DisplayAvailabilityDto::from).collect(Collectors.toList());
+        return availabilityService.findByAccommodationId(accommodationId)
+                .stream()
+                .map(DisplayAvailabilityDto::from)
+                .collect(Collectors.toList());
     }
 }

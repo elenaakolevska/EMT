@@ -3,6 +3,7 @@ package mk.ukim.finki.web;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
 import mk.ukim.finki.model.domain.Accommodation;
@@ -72,4 +73,10 @@ public class AccommodationController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/countByCategory")
+    public List<CategoryCountDTO> getAccommodationCategoryStats() {
+        return accommodationService.countByCategoryAcc();
+    }
+
 }
