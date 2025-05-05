@@ -1,6 +1,7 @@
 package mk.ukim.finki.service.domain.impl;
 
 import mk.ukim.finki.dto.CategoryCountDTO;
+import mk.ukim.finki.model.DisplayAccommodationsByHost;
 import mk.ukim.finki.model.domain.Accommodation;
 import mk.ukim.finki.model.enumerations.CategoryAcc;
 import mk.ukim.finki.repository.AccommodationRepository;
@@ -94,5 +95,10 @@ public class AccomodationServiceImpl implements AccomodationService {
                         (Long) result[1]
                 ))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DisplayAccommodationsByHost> getAccommodationStatsPerHost() {
+        return accommodationRepository.findAllFromMaterializedView();
     }
 }

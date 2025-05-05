@@ -3,6 +3,8 @@ package mk.ukim.finki.service.application.impl;
 import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
+import mk.ukim.finki.dto.display.DisplayAccommodationsByHostDto;
+import mk.ukim.finki.model.DisplayAccommodationsByHost;
 import mk.ukim.finki.service.application.ApplicationAccommodationService;
 import mk.ukim.finki.service.domain.AccomodationService;
 import org.springframework.stereotype.Service;
@@ -59,4 +61,18 @@ public class ApplicationAccommodationServiceImpl implements ApplicationAccommoda
     public List<CategoryCountDTO> countByCategoryAcc() {
         return accomodationService.countByCategory();
     }
+
+
+
+    @Override
+    public List<DisplayAccommodationsByHostDto> getAccommodationStatsPerHost() {
+        return accomodationService.getAccommodationStatsPerHost().stream()
+                .map(accommodation -> new DisplayAccommodationsByHostDto(
+                        accommodation.getName(),
+                        accommodation.getSurname(),
+                        accommodation.getNumAccommodations()
+                ))
+                .collect(Collectors.toList());
+    }
+
 }

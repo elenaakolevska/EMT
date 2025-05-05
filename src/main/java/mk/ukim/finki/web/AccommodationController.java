@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
+import mk.ukim.finki.dto.display.DisplayAccommodationsByHostDto;
 import mk.ukim.finki.model.domain.Accommodation;
 import mk.ukim.finki.service.application.ApplicationAccommodationService;
 import mk.ukim.finki.service.domain.AccomodationService;
@@ -79,4 +80,8 @@ public class AccommodationController {
         return accommodationService.countByCategoryAcc();
     }
 
+    @GetMapping("/by-host")
+    public List<DisplayAccommodationsByHostDto> getStatsByHost() {
+        return accommodationService.getAccommodationStatsPerHost();
+    }
 }

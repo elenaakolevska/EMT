@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private Role role;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Accommodation> temporaryReservations;
     public User() {
         this.temporaryReservations = new ArrayList<>();

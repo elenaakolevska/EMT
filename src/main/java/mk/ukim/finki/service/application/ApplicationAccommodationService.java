@@ -3,7 +3,8 @@ package mk.ukim.finki.service.application;
 import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
-import mk.ukim.finki.model.domain.Accommodation;
+import mk.ukim.finki.dto.display.DisplayAccommodationsByHostDto;
+import mk.ukim.finki.model.DisplayAccommodationsByHost;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +21,5 @@ public interface ApplicationAccommodationService {
     void deleteById(Long id);
     Optional<DisplayAccommodationDto> rentRoom(Long id);
     List<CategoryCountDTO> countByCategoryAcc();
-
+    List<DisplayAccommodationsByHostDto> getAccommodationStatsPerHost();
 }
