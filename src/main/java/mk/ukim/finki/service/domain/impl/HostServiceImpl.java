@@ -1,6 +1,8 @@
 package mk.ukim.finki.service.domain.impl;
 
 import mk.ukim.finki.model.domain.Host;
+import mk.ukim.finki.model.projections.HostByCountry;
+import mk.ukim.finki.model.projections.HostNameProjection;
 import mk.ukim.finki.repository.HostRepository;
 import mk.ukim.finki.service.domain.HostService;
 import org.springframework.stereotype.Service;
@@ -64,4 +66,15 @@ public class HostServiceImpl implements HostService {
     public void deleteById(Long id) {
         hostRepository.deleteById(id);
     }
+
+    @Override
+    public List<HostByCountry> getHostCountByCountry() {
+        return hostRepository.getHostCountByCountry();
+    }
+
+    @Override
+    public List<HostNameProjection> getAllHostNames() {
+        return hostRepository.findAllHostNames();
+    }
+
 }

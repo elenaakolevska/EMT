@@ -1,6 +1,7 @@
 package mk.ukim.finki.service.application;
 
 
+import mk.ukim.finki.dto.LoginResponseDto;
 import mk.ukim.finki.dto.LoginUserDto;
 import mk.ukim.finki.dto.create.CreateUserDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public interface UserApplicationService {
     Optional<DisplayUserDto> register(CreateUserDto createUserDto);
 
-    Optional<DisplayUserDto> login(LoginUserDto loginUserDto);
+    Optional<LoginResponseDto> login(LoginUserDto loginUserDto);
 
     Optional<DisplayUserDto> findByUsername(String username);
     List<DisplayAccommodationDto> addAccommodationToTempList(String username, Long accommodationId);

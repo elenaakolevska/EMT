@@ -12,14 +12,13 @@ import lombok.Data;
 public class DisplayAccommodationsByHost {
 
     @Id
-    private String name; // мора некое поле да го поставиш како ID
+    private String name;
 
     private String surname;
 
     @Column(name = "num_accommodations")
     private int numAccommodations;
 
-    // Constructors
     public DisplayAccommodationsByHost() {
     }
 
@@ -29,7 +28,6 @@ public class DisplayAccommodationsByHost {
         this.numAccommodations = numAccommodations;
     }
 
-    // Getters
     public String getName() {
         return name;
     }

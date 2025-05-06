@@ -29,17 +29,17 @@ public class DataInitializer {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-    @PostConstruct
+    //@PostConstruct
     public void init() {
-        Country c1=countryRepository.save(new Country("Macedonia","Europe"));
-        Country c2= countryRepository.save(new Country("Japan","Asia"));
-
-        Host h1= hostRepository.save(new Host("Dimitar","Iliev",c1));
-        Host h2=hostRepository.save(new Host("Mila","Ilieva",c2));
-
-        accommodationController.save(new CreateAccommodationDto("Family", CategoryAcc.APARTMENT,4,h1));
-        accommodationController.save(new CreateAccommodationDto("Solo", CategoryAcc.FLAT,1,h2));
-
+//        Country c1=countryRepository.save(new Country("Macedonia","Europe"));
+//        Country c2= countryRepository.save(new Country("Japan","Asia"));
+//
+//        Host h1= hostRepository.save(new Host("Dimitar","Iliev",c1));
+//        Host h2=hostRepository.save(new Host("Mila","Ilieva",c2));
+//
+//        accommodationController.save(new CreateAccommodationDto("Family", CategoryAcc.APARTMENT,4,h1));
+//        accommodationController.save(new CreateAccommodationDto("Solo", CategoryAcc.FLAT,1,h2));
+//
 
         userRepository.save(new User(
                 "user",

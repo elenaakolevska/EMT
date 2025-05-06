@@ -2,8 +2,12 @@ package mk.ukim.finki.service.application.impl;
 
 import mk.ukim.finki.dto.create.CreateHostDto;
 import mk.ukim.finki.dto.display.DisplayHostDto;
+import mk.ukim.finki.model.projections.HostByCountry;
+import mk.ukim.finki.model.projections.HostNameProjection;
 import mk.ukim.finki.service.application.ApplicationHostService;
 import mk.ukim.finki.service.domain.HostService;
+import mk.ukim.finki.events.HostChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +18,12 @@ import java.util.stream.Collectors;
 public class ApplicationHostServiceImpl implements ApplicationHostService {
 
     private final HostService hostService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public ApplicationHostServiceImpl(HostService hostService) {
+    public ApplicationHostServiceImpl(HostService hostService,
+                                      ApplicationEventPublisher eventPublisher) {
         this.hostService = hostService;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -33,18 +40,38 @@ public class ApplicationHostServiceImpl implements ApplicationHostService {
 
     @Override
     public Optional<DisplayHostDto> update(Long id, CreateHostDto host) {
-        return hostService.update(id,host.toHost())
-                .map(DisplayHostDto::from);    }
+        Optional<DisplayHostDto> updated = hostService.update(id,host.toHost())
+                .map(DisplayHostDto::from);
+
+        updated.ifPresent(dto -> eventPublisher.publishEvent(new HostChangedEvent(this)));
+
+        return updated;
+    }
 
     @Override
     public Optional<DisplayHostDto> save(CreateHostDto host) {
-        return hostService.save(host.toHost())
+        Optional<DisplayHostDto> saved = hostService.save(host.toHost())
                 .map(DisplayHostDto::from);
+
+        saved.ifPresent(dto -> eventPublisher.publishEvent(new HostChangedEvent(this)));
+
+        return saved;
     }
 
     @Override
     public void deleteById(Long id) {
         hostService.deleteById(id);
-
+        eventPublisher.publishEvent(new HostChangedEvent(this));
     }
+
+    @Override
+    public List<HostByCountry> getHostCountByCountry() {
+        return hostService.getHostCountByCountry();
+    }
+
+    @Override
+    public List<HostNameProjection> getAllHostNames() {
+        return hostService.getAllHostNames();
+    }
+
 }

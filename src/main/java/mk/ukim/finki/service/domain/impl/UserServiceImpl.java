@@ -49,8 +49,11 @@ public class UserServiceImpl implements UserService {
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        return userRepository.findByUsernameAndPassword(username, password).orElseThrow(
-                InvalidUserCredentialsException::new);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException(username + " not found"));
+        if (!passwordEncoder.matches(password, user.getPassword()))
+            throw new RuntimeException("Passwords do not match");
+        return user;
     }
 
     @Override

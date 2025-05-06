@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.ukim.finki.dto.create.CreateHostDto;
 import mk.ukim.finki.dto.display.DisplayHostDto;
-import mk.ukim.finki.model.domain.Host;
+import mk.ukim.finki.model.projections.HostByCountry;
+import mk.ukim.finki.model.projections.HostNameProjection;
+import mk.ukim.finki.repository.HostRepository;
 import mk.ukim.finki.service.application.ApplicationHostService;
-import mk.ukim.finki.service.domain.HostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,11 @@ import java.util.List;
 )
 public class HostController {
     private final ApplicationHostService hostService;
+    private final HostRepository hostRepository;
 
-    public HostController(ApplicationHostService hostService) {
+    public HostController(ApplicationHostService hostService, HostRepository hostRepository) {
         this.hostService = hostService;
+        this.hostRepository = hostRepository;
     }
 
     @Operation(
@@ -79,4 +82,15 @@ public class HostController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/by-country")
+    public List<HostByCountry> getHostCountByCountry() {
+        return hostService.getHostCountByCountry();
+    }
+
+    @GetMapping("/api/hosts/names")
+    public List<HostNameProjection> getAllHostNames() {
+        return hostService.getAllHostNames();
+    }
+
 }
