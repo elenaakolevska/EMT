@@ -32,7 +32,7 @@ public class JwtSecurityWebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8181"));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -44,17 +44,24 @@ public class JwtSecurityWebConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests()
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
-                        "/api/user/register",
-                        "/api/user/login"
+                        "/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**",
+                        "/api/user/login",
+                        "/api/user/register"
                 ).permitAll()
                 .requestMatchers(
                         "/api/accommodations/by-host",
                         "/api/hosts/by-country",
-                        "/api/hosts/names"
+                        "/api/hosts/names",
+                         "/hosts/add",
+                        "/hosts/edit/*",
+                        "/hosts/delete/*"
                 ).hasAnyAuthority("ROLE_USER", "ROLE_HOST")
                 .anyRequest()
                 .authenticated()

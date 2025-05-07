@@ -53,3 +53,4 @@ CREATE TABLE shop_users_temporary_reservations (
                                                    FOREIGN KEY (temporary_reservations_id) REFERENCES accommodation(id)
 );
 
+select * from country
