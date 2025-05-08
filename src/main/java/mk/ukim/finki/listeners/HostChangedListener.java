@@ -16,6 +16,6 @@ public class HostChangedListener {
 
     @EventListener
     public void handleHostChanged(HostChangedEvent event) {
-        jdbcTemplate.execute("REFRESH MATERIALIZED VIEW hosts_by_country");
+        jdbcTemplate.execute("REFRESH MATERIALIZED VIEW host_count_by_country");
     }
 }
