@@ -3,29 +3,36 @@ import InfoIcon from '@mui/icons-material/Info';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Box, Button, Card, CardActions, CardContent, Typography} from "@mui/material";
-import EditCountryDialog from "../EditCountryDialog/EditCountryDialog.jsx";
-import DeleteCountryDialog from "../DeleteCountryDialog/DeleteCountryDialog.jsx";
-import {useNavigate} from "react-router";
-import CountryDetails from "../CountryDetails/CountryDetails.jsx";
+import EditHostDialog from "../EditHostDialog/EditHostDialog.jsx";
+import DeleteHostDialog from "../DeleteHostDialog/DeleteHostDialog.jsx";
 
-const CountryCard = ({country, onEdit, onDelete}) => {
+import {useNavigate} from "react-router";
+
+const HostCard = ({host, onEdit, onDelete}) => {
     const navigate = useNavigate();
-    const [editCountryDialogOpen, setEditCountryDialogOpen] = useState(false);
-    const [deleteCountryDialogOpen, setDeleteCountryDialogOpen] = useState(false);
+    const [editHostDialogOpen, setEditHostDialogOpen] = useState(false);
+    const [deleteHostDialogOpen, setDeleteHostDialogOpen] = useState(false);
+
+
+    console.log("HostCard host:", host);
+    console.log("HostCard host.id:", host?.id);
+
 
     return (
         <>
             <Card sx={{boxShadow: 3, borderRadius: 2, p: 1}}>
                 <CardContent>
-                    <Typography variant="h5">{country.name}</Typography>
-                    <Typography variant="h5">{country.continent}</Typography>
+                    <Typography variant="h5">{host.name} {host.surname}</Typography>
+                    <Typography variant="body1" fontWeight="bold"
+                                sx={{textAlign: "left", fontSize: "1.25rem"}}>{host.country.name}</Typography>
+
                 </CardContent>
                 <CardActions sx={{justifyContent: "space-between"}}>
                     <Button
                         size="small"
                         color="info"
                         startIcon={<InfoIcon/>}
-                        onClick={() => navigate(`/countries/${country.id}`)}
+                        onClick={() => navigate(`/hosts/${host.id}`)}
                     >
                         Info
                     </Button>
@@ -35,7 +42,7 @@ const CountryCard = ({country, onEdit, onDelete}) => {
                             color="warning"
                             startIcon={<EditIcon/>}
                             sx={{mr: "0.25rem"}}
-                            onClick={() => setEditCountryDialogOpen(true)}
+                            onClick={() => setEditHostDialogOpen(true)}
                         >
                             Edit
                         </Button>
@@ -43,27 +50,30 @@ const CountryCard = ({country, onEdit, onDelete}) => {
                             size="small"
                             color="error"
                             startIcon={<DeleteIcon/>}
-                            onClick={() => setDeleteCountryDialogOpen(true)}
+                            onClick={() => setDeleteHostDialogOpen(true)}
                         >
                             Delete
                         </Button>
                     </Box>
                 </CardActions>
             </Card>
-            <EditCountryDialog
-                open={editCountryDialogOpen}
-                onClose={() => setEditCountryDialogOpen(false)}
-                country={country}
-                onEdit={onEdit}
-            />
-            <DeleteCountryDialog
-                open={deleteCountryDialogOpen}
-                onClose={() => setDeleteCountryDialogOpen(false)}
-                country={country}
+            {editHostDialogOpen && host && (
+                <EditHostDialog
+                    open={editHostDialogOpen}
+                    onClose={() => setEditHostDialogOpen(false)}
+                    host={host}
+                    onEdit={onEdit}
+                />
+            )}
+
+            <DeleteHostDialog
+                open={deleteHostDialogOpen}
+                onClose={() => setDeleteHostDialogOpen(false)}
+                host={host}
                 onDelete={onDelete}
             />
         </>
     );
 };
 
-export default CountryCard;
+export default HostCard;

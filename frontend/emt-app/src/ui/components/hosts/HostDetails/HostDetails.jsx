@@ -1,6 +1,5 @@
 import React from 'react';
 import {useNavigate, useParams} from "react-router";
-import useCountryDetails from "../../../../hooks/useCountryDetails.js";
 import {
     Box,
     Button,
@@ -24,13 +23,14 @@ import {
     FavoriteBorder,
     Share
 } from "@mui/icons-material";
+import useHostDetails from "../../../../hooks/useHostDetails.js";
 
-const CountryDetails = () => {
+const HostDetails = () => {
     const navigate = useNavigate();
     const {id} = useParams();
-    const {country} = useCountryDetails(id);//todo: add country
+    const {host} = useHostDetails(id);//todo: add country
 
-    if (!country) {
+    if (!host) {
         return (
             <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh'}}>
                 <CircularProgress/>
@@ -47,12 +47,12 @@ const CountryDetails = () => {
                     href="#"
                     onClick={(e) => {
                         e.preventDefault();
-                        navigate("/countries");
+                        navigate("/hosts");
                     }}
                 >
-                    Countries
+                    Hosts
                 </Link>
-                <Typography color="text.primary">{country.name}</Typography>
+                <Typography color="text.primary">{host.name}</Typography>
             </Breadcrumbs>
 
             <Paper elevation={2} sx={{p: 4, borderRadius: 4}}>
@@ -60,10 +60,10 @@ const CountryDetails = () => {
                     <Grid size={{xs: 12, md: 9}}>
                         <Box sx={{mb: 3}}>
                             <Typography variant="h5" gutterBottom sx={{fontWeight: 600}}>
-                                Country name: {country.name}
+                                Host name: {host.name}
                             </Typography>
                             <Typography variant="h5" gutterBottom sx={{fontWeight: 600}}>
-                                Country continent: {country.continent}
+                                Host surname: {host.surname}
                             </Typography>
                         </Box>
                     </Grid>
@@ -77,9 +77,9 @@ const CountryDetails = () => {
                         <Button
                             variant="outlined"
                             startIcon={<ArrowBack/>}
-                            onClick={() => navigate("/countries")}
+                            onClick={() => navigate("/hosts")}
                         >
-                            Back to Countries
+                            Back to Hosts
                         </Button>
                     </Grid>
                 </Grid>
@@ -88,4 +88,4 @@ const CountryDetails = () => {
     );
 };
 
-export default CountryDetails;
+export default HostDetails;

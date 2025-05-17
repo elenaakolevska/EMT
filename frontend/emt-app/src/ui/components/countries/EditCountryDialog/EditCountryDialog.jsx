@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-
 import {
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
+    FormControl,
+    InputLabel, MenuItem, Select,
     TextField
 } from "@mui/material";
 
@@ -14,10 +15,7 @@ const EditCountryDialog = ({open, onClose, country, onEdit}) => {
     const [formData, setFormData] = useState({
         "name": country.name,
         "continent": country.continent,
-
     });
-
-
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
@@ -31,7 +29,7 @@ const EditCountryDialog = ({open, onClose, country, onEdit}) => {
 
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Edit Product</DialogTitle>
+            <DialogTitle>Edit Country</DialogTitle>
             <DialogContent>
                 <TextField
                     margin="dense"
@@ -49,7 +47,6 @@ const EditCountryDialog = ({open, onClose, country, onEdit}) => {
                     onChange={handleChange}
                     fullWidth
                 />
-
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>

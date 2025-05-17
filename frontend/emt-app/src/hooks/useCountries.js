@@ -6,9 +6,8 @@ const initialState = {
     "loading": true,
 };
 
-const useCountries = () => {
+const useCountries = () =>{
     const [state, setState] = useState(initialState);
-
     const fetchCountries = useCallback(() => {
         countryRepository
             .findAll()
@@ -20,7 +19,6 @@ const useCountries = () => {
             })
             .catch((error) => console.log(error));
     }, []);
-
     const onAdd = useCallback((data) => {
         countryRepository
             .add(data)
@@ -30,7 +28,6 @@ const useCountries = () => {
             })
             .catch((error) => console.log(error));
     }, [fetchCountries]);
-
     const onEdit = useCallback((id, data) => {
         countryRepository
             .edit(id, data)
@@ -40,7 +37,6 @@ const useCountries = () => {
             })
             .catch((error) => console.log(error));
     }, [fetchCountries]);
-
     const onDelete = useCallback((id) => {
         countryRepository
             .delete(id)
@@ -50,12 +46,11 @@ const useCountries = () => {
             })
             .catch((error) => console.log(error));
     }, [fetchCountries]);
-
     useEffect(() => {
         fetchCountries();
     }, [fetchCountries]);
-
     return {...state, onAdd: onAdd, onEdit: onEdit, onDelete: onDelete};
+
 };
 
 export default useCountries;

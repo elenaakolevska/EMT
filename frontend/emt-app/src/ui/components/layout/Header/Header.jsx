@@ -7,6 +7,8 @@ import "./Header.css";
 const pages = [
     {"path": "/", "name": "home"},
     {"path": "/countries", "name": "countries"},
+    {"path": "/hosts", "name": "hosts"},
+
 ];
 
 const Header = () => {

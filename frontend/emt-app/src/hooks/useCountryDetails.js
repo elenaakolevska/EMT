@@ -1,12 +1,10 @@
-import {useEffect, useState} from "react";
+import {useEffect,useState} from "react";
 import countryRepository from "../repository/countryRepository.js";
-
 
 const useCountryDetails = (id) => {
     const [state, setState] = useState({
-        "country": null,
+        "country": null
     });
-
     useEffect(() => {
         countryRepository
             .findById(id)
@@ -14,9 +12,10 @@ const useCountryDetails = (id) => {
                 setState(prevState => ({...prevState, "country": response.data}));
 
             })
-            .catch((error) => console.log(error));
-    }, [id]);
-
+            .catch((error) => {
+                console.log("Error fetching country:", error);
+            });
+    },[id]);
     return state;
 };
 
