@@ -8,6 +8,7 @@ const pages = [
     {"path": "/", "name": "home"},
     {"path": "/countries", "name": "countries"},
     {"path": "/hosts", "name": "hosts"},
+    {"path": "/accommodations", "name": "accommodations"},
 
 ];
 

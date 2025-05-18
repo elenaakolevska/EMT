@@ -4,6 +4,9 @@ import mk.ukim.finki.dto.CategoryCountDTO;
 import mk.ukim.finki.dto.create.CreateAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationDto;
 import mk.ukim.finki.dto.display.DisplayAccommodationsByHostDto;
+import mk.ukim.finki.model.domain.Accommodation;
+import mk.ukim.finki.model.domain.Host;
+import mk.ukim.finki.repository.HostRepository;
 import mk.ukim.finki.service.application.ApplicationAccommodationService;
 import mk.ukim.finki.service.domain.AccomodationService;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,11 @@ import java.util.stream.Collectors;
 public class ApplicationAccommodationServiceImpl implements ApplicationAccommodationService {
 
     private final AccomodationService accomodationService;
+    private final HostRepository hostRepository;
 
-    public ApplicationAccommodationServiceImpl(AccomodationService accomodationService) {
+    public ApplicationAccommodationServiceImpl(AccomodationService accomodationService, HostRepository hostRepository) {
         this.accomodationService = accomodationService;
+        this.hostRepository = hostRepository;
     }
 
     @Override
@@ -34,16 +39,39 @@ public class ApplicationAccommodationServiceImpl implements ApplicationAccommoda
     }
 
     @Override
-    public Optional<DisplayAccommodationDto> update(Long id, CreateAccommodationDto accommodation) {
-        return accomodationService.update(id,accommodation.toAccommodation())
+    public Optional<DisplayAccommodationDto> update(Long id, CreateAccommodationDto dto) {
+        Host host = hostRepository.findById(dto.hostId())
+                .orElseThrow(() -> new RuntimeException("Host not found"));
+
+        Accommodation updated = new Accommodation(
+                dto.name(),
+                dto.category(),
+                dto.numRooms(),
+                host
+        );
+
+        return accomodationService.update(id, updated)
                 .map(DisplayAccommodationDto::from);
     }
 
+
     @Override
-    public Optional<DisplayAccommodationDto> save(CreateAccommodationDto accommodation) {
-        return accomodationService.save(accommodation.toAccommodation())
+    public Optional<DisplayAccommodationDto> save(CreateAccommodationDto dto) {
+        Host host = hostRepository.findById(dto.hostId())
+                .orElseThrow(() -> new RuntimeException("Host not found"));
+
+        Accommodation accommodation = new Accommodation(
+                dto.name(),
+                dto.category(),
+                dto.numRooms(),
+                host
+        );
+
+        return accomodationService.save(accommodation)
                 .map(DisplayAccommodationDto::from);
     }
+
+
 
     @Override
     public void deleteById(Long id) {

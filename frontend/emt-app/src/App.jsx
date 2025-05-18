@@ -7,6 +7,8 @@ import CountryDetails from "./ui/components/countries/CountryDetails/CountryDeta
 import HostDetails from "./ui/components/hosts/HostDetails/HostDetails.jsx";
 
 import HostsPage from "./ui/pages/HostsPage/HostsPage.jsx";
+import AccommodationsPage from "./ui/pages/AccommodationsPage/AccommodationsPage.jsx";
+import AccommodationDetails from "./ui/components/accommodations/AccommodationDetails/AccommodationDetails.jsx";
 
 const App = () => {
     return (
@@ -18,6 +20,8 @@ const App = () => {
                     <Route path="countries/:id" element={<CountryDetails/>}/>
                     <Route path="hosts" element={<HostsPage/>}/>
                     <Route path="hosts/:id" element={<HostDetails/>}/>
+                    <Route path="accommodations" element={<AccommodationsPage/>}/>
+                    <Route path="accommodations/:id" element={<AccommodationDetails/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
