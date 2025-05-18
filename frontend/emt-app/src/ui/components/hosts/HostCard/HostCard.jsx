@@ -14,8 +14,8 @@ const HostCard = ({host, onEdit, onDelete}) => {
     const [deleteHostDialogOpen, setDeleteHostDialogOpen] = useState(false);
 
 
-    console.log("HostCard host:", host);
-    console.log("HostCard host.id:", host?.id);
+    console.log("Rendering host:", host);
+
 
 
     return (

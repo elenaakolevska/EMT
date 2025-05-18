@@ -18,7 +18,7 @@ const useHostDetails = (id) => {
                 countryRepository
                     .findById(response.data.country.id)
                     .then((response) => {
-                        setState(prevState => ({...prevState, "country": response.data.country.name}));
+                        setState(prevState => ({...prevState, "country": response.data}));
                     })
 
 

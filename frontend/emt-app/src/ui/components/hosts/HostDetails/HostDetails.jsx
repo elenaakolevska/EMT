@@ -28,7 +28,7 @@ import useHostDetails from "../../../../hooks/useHostDetails.js";
 const HostDetails = () => {
     const navigate = useNavigate();
     const {id} = useParams();
-    const {host} = useHostDetails(id);//todo: add country
+    const { host, country } = useHostDetails(id);
 
     if (!host) {
         return (
@@ -65,6 +65,10 @@ const HostDetails = () => {
                             <Typography variant="h5" gutterBottom sx={{fontWeight: 600}}>
                                 Host surname: {host.surname}
                             </Typography>
+                            <Typography variant="body1" fontWeight="bold">
+                                Country: {country?.name || 'Unknown'}
+                            </Typography>
+
                         </Box>
                     </Grid>
                     <Grid size={12} display="flex" justifyContent="space-between">

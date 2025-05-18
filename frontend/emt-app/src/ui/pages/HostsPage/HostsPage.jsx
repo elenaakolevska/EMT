@@ -4,7 +4,6 @@ import "./HostsPage.css";
 import useHosts from "../../../hooks/useHosts.js";
 import AddHostDialog from "../../components/hosts/AddHostDialog/AddHostDialog.jsx";
 import HostsGrid from "../../components/hosts/HostsGrid/HostsGrid.jsx";
-import EditHostDialog from "../../components/hosts/EditHostDialog/EditHostDialog.jsx";
 
 const HostsPage = () => {
     const {hosts, loading, onAdd, onEdit, onDelete} = useHosts();
